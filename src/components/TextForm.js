@@ -11,6 +11,14 @@ export default function TextForm(props) {
     const handleClear=()=>{
         setText('');
     }
+    const handleCopy=()=>{
+        navigator.clipboard.writeText(text);
+    }
+    const handleSpace=()=>{
+        let newText=text.split(/[ ]+/);
+        setText(newText.join(' '));
+    }
+
     
     const handleOnChange=(event)=>{
         console.log("on change");
@@ -18,16 +26,18 @@ export default function TextForm(props) {
     }
 
     return (
-        <>
+        <div className="Container" style={{color:props.mode ===`dark` ? `white`: `black`}}>
         <div>
             <h1>{props.heading}</h1>
             <div className="mb-3">
                 
-                <textarea className="form-control" onChange={handleOnChange} id="myBox" value={text} rows="7"></textarea>
+                <textarea className="form-control" onChange={handleOnChange} id="myBox" value={text} rows="7" style={{backgroundColor:props.mode ==='dark' ? 'dark': 'light', color:props.mode==='dark'? 'grey':'black'}}></textarea>
             </div>
                 <button className="btn btn-primary" onClick={handleUpClick}>Convert to Upper case</button>
                 <button className="btn btn-primary mx-1" onClick={handleLoClick}>Convert to lower case</button>
                 <button className="btn btn-primary mx-1" onClick={handleClear}>Clear Text</button>
+                <button className="btn btn-primary mx-1" onClick={handleCopy}>Copy Text</button>
+                <button className="btn btn-primary mx-1" onClick={handleSpace}>Remove Extra space</button>
 
         </div>
 
@@ -36,8 +46,8 @@ export default function TextForm(props) {
             <p>{text.split(' ').length} words and {text.length} characters</p>
             <p>{0.008* text.split(' ').length} minutes read</p>
             <h2>Preview</h2>
-            <p>{text}</p>
+            <p>{text.length==0? 'Enter something to preview': text}</p>
         </div>
-        </>
+        </div>
     )
 }
