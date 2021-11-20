@@ -3,20 +3,25 @@ import React, {useState} from 'react'
 export default function TextForm(props) {
     const [text, setText]=useState('');
     const handleUpClick=()=>{  
-        setText(text.toUpperCase())
+        setText(text.toUpperCase());
+        props.showAlert('Converted to UpperCase', 'success')
     }
     const handleLoClick=()=>{ 
         setText(text.toLowerCase())
+        props.showAlert('Converted to LowerCase', 'success')
     }
     const handleClear=()=>{
         setText('');
+        props.showAlert('Text cleared', 'success')
     }
     const handleCopy=()=>{
         navigator.clipboard.writeText(text);
+        props.showAlert('Copied to Clipboard', 'success')
     }
     const handleSpace=()=>{
         let newText=text.split(/[ ]+/);
         setText(newText.join(' '));
+        props.showAlert('Extra spaces removed', 'success')
     }
 
     
